@@ -1,7 +1,7 @@
 <template>
     <div class=" bg-gray-900">
         <div class="md:container md:mx-auto mx-auto text-white py-10">
-            <div class="text-center">
+            <!-- <div class="text-center">
                 <h3 class="text-3xl mb-3"> Download our book-light app </h3>
                 <p> Learn and Live. </p>
                 <div class="flex justify-center my-10">
@@ -20,8 +20,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="mt-28 flex flex-col md:flex-row md:justify-between items-center text-sm text-gray-400">
+            </div> -->
+            <div class="mt-28 flex flex-col md:flex-row md:justify-between items-center text-gray-400">
                 <p class="order-2 md:order-1 mt-8 md:mt-0"> &copy; thefossildream 2023 - 2030. </p>
                 <div class="order-1 md:order-2">
                     <span class="px-2">About us</span>

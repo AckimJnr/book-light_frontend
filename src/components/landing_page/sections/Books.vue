@@ -7,8 +7,8 @@
     <div class="container mx-auto px-5 overflow-x-hidden xlg:overflow-x-visible" id="Books">
         <section class="grid grid-cols-none lg:grid-cols-2 pb-16 pt-8 items-center">
             <div class="lg:w-5/6 order-2 lg:order-none">
-                <h1 class="text-4xl xl:text-5xl font-bold font-theme-heading text-center lg:text-left">Your online BookShelf</h1>
-                <p class="lg:text-xl mt-10 font-theme-content text-theme-grayish-blue text-center lg:text-left">
+                <h1 class="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">Online book shelf</h1>
+                <p class="mt-6 text-lg leading-8 text-gray-600">
                     On BookLight, you can read books, publish books, and even sell books. You can also read books from other authors and publishers.
                     We have a wide range of books from different genres, from fiction to non-fiction, from romance to horror, from fantasy to sci-fi, motivational and many more.
                 </p>
