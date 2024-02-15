@@ -1,5 +1,5 @@
 <template>
-       <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+   <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700">
       <div class="px-3 py-3 lg:px-5 lg:pl-3">
          <div class="flex items-center justify-between">
             <div class="flex items-center justify-start rtl:justify-end">
@@ -27,8 +27,15 @@
                         class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
                         aria-expanded="false" data-dropdown-toggle="dropdown-user">
                         <span class="sr-only">Open user menu</span>
-                        <img class="w-8 h-8 rounded-full"
-                           src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+
+                        <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                           <svg class="absolute w-12 h-12 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20"
+                              xmlns="http://www.w3.org/2000/svg">
+                              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                 clip-rule="evenodd"></path>
+                           </svg>
+                        </div>
+
                      </button>
                   </div>
                   <div
@@ -36,10 +43,10 @@
                      id="dropdown-user">
                      <div class="px-4 py-3" role="none">
                         <p class="text-sm text-gray-900 dark:text-white" role="none">
-                           User name
+                           {{ user && user.full_name ? user.full_name : 'User' }}
                         </p>
                         <p class="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                           ackim@email.com
+                           {{ user && user.email ? user.email : 'email@example.com' }}
                         </p>
                      </div>
                      <ul class="py-1" role="none">
@@ -58,15 +65,36 @@
 </template>
 
 <script setup>
-import {ref} from 'vue';
-import {useRouter} from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import axios from 'axios';
+
 
 const router = useRouter();
+
+const user = ref(null);
 
 const signOut = () => {
    localStorage.removeItem('access_token');
    router.push({ name: 'home' });
 };
+
+
+const fetchUserData = async () => {
+   try{
+      const response = await axios.get('http://127.0.0.1:8000/api/user', {
+         headers: {
+            'Authorization' : `Bearer ${localStorage.getItem('access_token')}`
+         }
+      });
+
+      user.value = response.data;
+   } catch (error){
+      console.log('Error fetching user data:', error);
+   }
+};
+
+onMounted(fetchUserData);
 </script>
 
 

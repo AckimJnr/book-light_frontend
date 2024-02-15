@@ -7,8 +7,6 @@
         </div>
 
         <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <Alert type="info" class="mb-2">Info</Alert>
-
             <form class="space-y-6" @submit.prevent="validateAndSignUp">
                 <div v-if="errors.length" class="mt-4 text-red-500">
                     <ul>

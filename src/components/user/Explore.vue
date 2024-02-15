@@ -32,18 +32,22 @@
                 <!-- Start Book Section -->
                 <div class="book">
 
-                    <div
+                    <div v-for="book in books" :key="book.id"
                         class="w-full max-w-sm bg-white  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <!-- cover image -->
-                        <a href="#">
+                        <a :href="book.book_url">
                             <img class="p-8 rounded-t-lg" src="@/assets/images/booklight.png" alt="Book Cover" />
                         </a>
+                        <!-- end cover image-->
+
                         <div class="px-5 pb-5">
+                            <!-- start book title-->
                             <a href="#">
-                                <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">Programming
-                                    in C
+                                <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                    {{ book.title }}
                                 </h5>
                             </a>
+                            <!-- end book title-->
                             <div class="flex items-center mt-2.5 mb-5">
                                 <div class="flex items-center space-x-1 rtl:space-x-reverse">
                                     <svg class="w-4 h-4 text-yellow-300" aria-hidden="true"
@@ -93,17 +97,30 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 import SideBar from '@/components/common/SideBar.vue';
 import ProfileHeader from '@/components/common/ProfileHeader.vue';
 
 const router = useRouter();
 
-const signOut = () => {
-    localStorage.removeItem('access_token');
-    router.push({ name: 'home' });
-};
+const books = ref([]);
+
+
+onMounted(async () =>{
+
+    try{
+        const accessToken = localStorage.getItem('access_token');
+        const response = await axios.get('http://127.0.0.1:8000/api/books', 
+        { headers: { Authorization: `Bearer ${accessToken}` } });
+        books.value = response.data.data;
+        console.log(response.data.data)
+    } catch(error){
+        console.error('Error fetching data:', error);
+    }
+});
+
 </script>
  
  
