@@ -82,15 +82,23 @@ const handleSubmit = async () => {
       toaster.show(error.value);
     }
   } catch (error) {
+    if(error.response)
+      if (error.response.status === 401) {
+        error.value = 'Invalid email or password. Please try again.';
+        toaster.show(error.value);
+      } else {
 
-    if (error.response.status === 401) {
-      error.value = 'Invalid email or password. Please try again.';
-      toaster.show(error.value);
-    } else {
-
-      error.value = 'An error occurred during login.';
-      toaster.show(error.value)
-    }
+        error.value = 'An error occurred during login.';
+        toaster.show(error.value)
+      }
+      else if (error.request){
+        error.value = 'An error occurred during login.';
+        toaster.show(error.value);
+      }
+      else {
+        error.value = 'An error occurred during login.';
+        toaster.show(error.value);
+      }
   } finally {
     isSigningIn.value = false;
   }

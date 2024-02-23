@@ -30,13 +30,13 @@
                 <!-- End Search Section -->
 
                 <!-- Start Book Section -->
-                <div class="book">
-
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div v-for="book in books" :key="book.id"
                         class="w-full max-w-sm bg-white  border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <!-- cover image -->
                         <a :href="book.book_url">
-                            <img class="p-8 rounded-t-lg" src="@/assets/images/booklight.png" alt="Book Cover" />
+                            <img class="p-8 rounded-t-lg object-scale-down h-48 w-96" src="@/assets/images/booklight.png"
+                                alt="Book Cover" />
                         </a>
                         <!-- end cover image-->
 
@@ -80,7 +80,7 @@
                                     class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ms-3">5.0</span>
                             </div>
                             <div class="flex items-center justify-between">
-                                <span class="text-3xl font-bold text-gray-900 dark:text-white">K 10, 000</span>
+                                <span class="text-sm font-bold text-gray-900 dark:text-white">K 10, 000</span>
                                 <a href="#"
                                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
                                     to Shelf</a>
@@ -90,7 +90,7 @@
 
                 </div>
                 <!-- End Book Section -->
-                
+
             </div>
 
         </div>
@@ -108,15 +108,15 @@ const router = useRouter();
 const books = ref([]);
 
 
-onMounted(async () =>{
+onMounted(async () => {
 
-    try{
+    try {
         const accessToken = localStorage.getItem('access_token');
-        const response = await axios.get('http://127.0.0.1:8000/api/books', 
-        { headers: { Authorization: `Bearer ${accessToken}` } });
+        const response = await axios.get('http://127.0.0.1:8000/api/books',
+            { headers: { Authorization: `Bearer ${accessToken}` } });
         books.value = response.data.data;
         console.log(response.data.data)
-    } catch(error){
+    } catch (error) {
         console.error('Error fetching data:', error);
     }
 });
